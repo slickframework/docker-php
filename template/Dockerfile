@@ -1,5 +1,5 @@
 FROM php:{{ version }}-fpm
-MAINTAINER Helder Correia <me@heldercorreia.com>
+MAINTAINER Filipe Silva <silvam.filipe@gmail.com>
 
 COPY bin/* /usr/local/bin/
 RUN mkdir -p /usr/local/etc/php/disabled
@@ -18,15 +18,13 @@ RUN apt-install \
   && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
   && docker-php-ext-install gd
 
-RUN docker-php-pecl-install uploadprogress
-
 RUN apt-install zlib1g-dev libicu-dev g++ && \
     docker-php-ext-configure intl && \
     docker-php-ext-install intl && \
     apt-purge g++
 
 ENV USE_XDEBUG no
-ENV XDEBUG_VERSION 2.4.0
+ENV XDEBUG_VERSION 2.4.1
 RUN docker-php-pecl-install xdebug-$XDEBUG_VERSION && \
     echo "xdebug.remote_enable=on\nxdebug.remote_connect_back=on" > /usr/local/etc/php/conf.d/xdebug.ini && \
     mkdir -p /usr/local/etc/php/xdebug.d && \
@@ -60,7 +58,7 @@ RUN apt-install git rsync zlib1g-dev && \
     docker-php-ext-install zip
 
 ENV COMPOSER_HOME /var/www/.composer
-ENV COMPOSER_VERSION 1.0.0
+ENV COMPOSER_VERSION 1.2.0
 ENV PATH vendor/bin:$COMPOSER_HOME/vendor/bin:$PATH
 
 RUN curl -sS https://getcomposer.org/installer | php -- \
