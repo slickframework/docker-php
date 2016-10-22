@@ -3,6 +3,7 @@ MAINTAINER Filipe Silva <silvam.filipe@gmail.com>
 
 COPY bin/* /usr/local/bin/
 RUN mkdir -p /usr/local/etc/php/disabled
+RUN mkdir /usr/src/app
 
 # Install useful extensions
 RUN apt-install \
@@ -82,5 +83,6 @@ RUN sed -i -e '/^access.log/ s/^/;/' /usr/local/etc/php-fpm.d/docker.conf && \
 # Add entrypoint
 COPY init.d /docker-entrypoint-init.d/
 COPY docker-entrypoint.sh /
+WORKDIR /usr/src/app
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["php-fpm"]
