@@ -24,7 +24,7 @@ RUN apt-install zlib1g-dev libicu-dev g++ && \
     apt-purge g++
 
 ENV USE_XDEBUG no
-ENV XDEBUG_VERSION 2.4.1
+ENV XDEBUG_VERSION 2.5.4
 RUN docker-php-pecl-install xdebug-$XDEBUG_VERSION && \
     echo "xdebug.remote_enable=on\nxdebug.remote_connect_back=on" > /usr/local/etc/php/conf.d/xdebug.ini && \
     mkdir -p /usr/local/etc/php/xdebug.d && \
@@ -41,7 +41,7 @@ RUN apt-install ssmtp && \
 
 
 # Grab gosu for easy step-down from root
-ENV GOSU_VERSION 1.7
+ENV GOSU_VERSION 1.10
 RUN set -x \
   && curl -sSLo /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
   && curl -sSLo /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
@@ -58,7 +58,7 @@ RUN apt-install git rsync zlib1g-dev && \
     docker-php-ext-install zip
 
 ENV COMPOSER_HOME /var/www/.composer
-ENV COMPOSER_VERSION 1.2.0
+ENV COMPOSER_VERSION 1.4.2
 ENV PATH vendor/bin:$COMPOSER_HOME/vendor/bin:$PATH
 
 RUN curl -sS https://getcomposer.org/installer | php -- \

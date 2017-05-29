@@ -1,4 +1,4 @@
-FROM php:{{ version }}-fpm
+FROM php:7.1-fpm
 MAINTAINER Filipe Silva <silvam.filipe@gmail.com>
 
 COPY bin/* /usr/local/bin/
