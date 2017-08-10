@@ -10,6 +10,8 @@ RUN apt-install \
       libjpeg62-turbo-dev \
       libmcrypt-dev \
       libpng12-dev \
+      libicu-dev \
+      libmemcached-dev \
   && docker-php-ext-install \
       mcrypt \
       mysqli \
@@ -22,6 +24,10 @@ RUN apt-install zlib1g-dev libicu-dev g++ && \
     docker-php-ext-configure intl && \
     docker-php-ext-install intl && \
     apt-purge g++
+
+ENV MEMCACHED_VERSION 2.2.0
+RUN { yes '/usr' | pecl install memcached-$MEMCACHED_VERSION; } \
+    && echo "extension=memcached.so" >> /usr/local/etc/php/conf.d/memcached.ini
 
 ENV USE_XDEBUG no
 ENV XDEBUG_VERSION 2.5.4

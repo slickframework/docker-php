@@ -75,15 +75,15 @@ Note that the container must be run as root, for the permission to change the ww
 Use `gosu` to run a command as www-data in order to use the mapped ownership.
 
     $ # by default the current dir is used to change www-data's uid
-    $ docker run -it --rm -v $PWD:/usr/src/app -w /usr/src/app helder/php gosu www-data id
+    $ docker run -it --rm -v $PWD:/usr/src/app -w /usr/src/app slickframework/php gosu www-data id
     uid=1000(www-data) gid=1000(www-data) groups=1000(www-data)
 
     $ # but you can specify another one
-    $ docker run -it --rm -e MAP_WWW_UID=/data -v $PWD:/data helder/php gosu www-data id
+    $ docker run -it --rm -e MAP_WWW_UID=/data -v $PWD:/data slickframework/php gosu www-data id
     uid=1000(www-data) gid=1000(www-data) groups=1000(www-data)
 
     $ # or disable it by setting MAP_WWW_UID=no
-    $ docker run -it --rm -e MAP_WWW_UID=no -v $PWD:/data -w /data helder/php gosu www-data id
+    $ docker run -it --rm -e MAP_WWW_UID=no -v $PWD:/data -w /data slickframework/php gosu www-data id
     uid=33(www-data) gid=33(www-data) groups=33(www-data)
 
 #### Syslog
@@ -91,7 +91,7 @@ Use `gosu` to run a command as www-data in order to use the mapped ownership.
 The image comes with an entrypoint that checks for a socket in `/var/run/rsyslog/dev/log`. If it exists, it will symlink `/dev/log` to it. This is useful to send logs to syslog.
 
     $ docker run -d --name syslog helder/rsyslog
-    $ docker run -it --rm --volumes-from syslog helder/php logger -p local1.notice "This is a notice!"
+    $ docker run -it --rm --volumes-from syslog slickframework/php logger -p local1.notice "This is a notice!"
     $ docker logs syslog
 
 If you would like to check for another location, set the environment variable `DEV_LOG_TARGET`.
@@ -108,13 +108,13 @@ Run mailcatcher process:
 
 Send email:
 
-    docker run -it --rm --link mail helder/php php -r 'mail("to@address.com", "Test", "Testing!", "From: my@example.com");'
+    docker run -it --rm --link mail slickframework/php php -r 'mail("to@address.com", "Test", "Testing!", "From: my@example.com");'
 
 Open your browser at http://localhost:1080 to see your emails.
 
 To use other settings, override in your Dockerfile:
 
-    FROM helder/php
+    FROM slickframework/php
     RUN COPY ssmtp.conf /etc/ssmtp/ssmtp.conf
 
 #### Timezone

@@ -15,7 +15,7 @@ for version in "${versions[@]}"; do
       set -x
       rm -rf versions/$version/*
       cp -r README.md template/* versions/$version/
-      sed -i '' -e 's/{{ version }}/'$version'/g' versions/$version/Dockerfile
-      # sed -i -e 's/{{ version }}/'$version'/g' versions/$version/Dockerfile
+      # sed -i '' -e 's/{{ version }}/'$version'/g' versions/$version/Dockerfile
+      sed -i -e 's/{{ version }}/'$version'/g' versions/$version/Dockerfile
     )
 done
